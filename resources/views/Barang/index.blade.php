@@ -10,7 +10,10 @@ Barang
 <div class="card-title">
     <h5>Data Barang</h5>
 
-    <button typo="button" class="btn btn-success btn-sm float-end"  data-bs-toggle="modal" data-bs-target=#modalTambah><i class="fa fa-plus"></i></button>
+    
+    <a type="button" 
+    class="btn btn-success btn-sm float-end"  href="{{route('barang.create')}}">
+      <i class="fa fa-plus"></i></a>
     </div>
 </div>
 <div class="card-body">
@@ -29,19 +32,21 @@ Barang
 </thead>
 
  <tbody>
+    @foreach ($barang as $item)
     <tr>
-        <td>1</td>
-        <td>RCB</td>
-        <td>1.000.000</td>
-        <td>5</td>
-        <td>Mediaatek</td>
-        <td>ATK</td>
+        <td>{{$loop->iteration}}</td>
+        <td>{{$item->nama}}</td>
+        <td>{{$item->harga}}</td>
+        <td>{{$item->stok}}</td>
+        <td>{{! empty($item->suplier->nama)? $item->suplier->nama: ''}}</td>
+        <td>{{! empty($item->kategori->nama)? $item->kategori->nama: ''}}</td>
         <td>
-            <a href="#" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i>
+            <a href="/barang/{{$item->id}}/edit" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
+            <a href="/barang/{{$item->id}}/hapus" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i>
             </a>
             </td>
     </tr>
+    @endforeach
  </tbody>
     
 </body>
@@ -64,6 +69,7 @@ Barang
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Understood</button>
       </div>
+</form>
     </div>
   </div>
 </div>

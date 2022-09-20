@@ -7,12 +7,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="barang">Barang</a>
+          <a class="nav-link" href="/barang">Barang</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="kategori">Kategori</a>
+          <a class="nav-link" href="/kategori">Kategori</a>
           <li class="nav-item">
-          <a class="nav-link" href="suplayer">Suplayer</a>
+          <a class="nav-link" href="/suplier">Suplier</a>
           <li class="nav-item">
           <a class="nav-link" href="pembeli">Pembeli</a>
           <li class="nav-item">

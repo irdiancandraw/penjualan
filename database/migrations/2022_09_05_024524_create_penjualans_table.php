@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id();
-            $table->integer('Barang_id'); 
-            $table->integer('Pembeli_id');
-            $table->integer('jumblah'); 
-            $table->integer('Harga_jual');
+            $table->integer('barang'); 
+            $table->integer('pembeli');
+            $table->integer('jumlah'); 
+            $table->integer('harga_jual');
             $table->timestamps();
         });
     }

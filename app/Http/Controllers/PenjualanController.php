@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
+use App\Models\Pembeli;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -14,7 +16,10 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        //
+        $pembeli = Pembeli::all();
+        $barang = Barang::all();
+        $penjualan = Penjualan::all();
+        return view('penjualan.index', compact('penjualan', 'barang', 'pembeli'));
     }
 
     /**
@@ -24,7 +29,8 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        //
+        $penjualan= Penjualan::all();
+        return view('penjualan.form',compact ('penjualan'));
     }
 
     /**
@@ -35,7 +41,23 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'barang' => 'required',
+            'pembeli' => 'required',
+            'jumlah'    => 'required|numeric',
+            'harga_jual'     => 'required|numeric',
+        ]);
+
+
+        $penjualan = Penjualan::create([
+            'barang' => $request->barang,
+            'pembeli' => $request->pembeli,
+            'jumlah' => $request->jumlah,
+            'harga_jual' => $request->harga_jual
+        ]);
+
+
+        return redirect('penjualan');
     }
 
     /**
@@ -55,9 +77,12 @@ class PenjualanController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penjualan $penjualan)
+    public function edit($id)
     {
-        //
+        $barang = Barang::all();
+        $pembeli = Pembeli::all();
+        $penjualan = Penjualan::find($id);
+        return view('penjualan.form', compact('penjualan', 'barang', 'pembeli'));
     }
 
     /**
@@ -69,7 +94,21 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, Penjualan $penjualan)
     {
-        //
+        $validate = $request->validate([
+            'barang' => 'required',
+            'pembeli' => 'required',
+            'jumlah'    => 'required|numeric',
+            'harga_jual'     => 'required|numeric',
+        ]);
+
+
+        $penjualan->update([
+            'barang' => $request->barang_id,
+            'pembeli' => $request->pembeli_id,
+            'jumlah' => $request->jumlah,
+            'harga_jual' => $request->harga_jual
+        ]);
+        return redirect('penjualan');
     }
 
     /**
@@ -78,8 +117,11 @@ class PenjualanController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penjualan $penjualan)
+    public function destroy($id)
     {
-        //
+        $penjualan = Penjualan::find($id);
+        $penjualan->delete();
+
+        return redirect('penjualan');
     }
 }

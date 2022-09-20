@@ -14,7 +14,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        $kategori = Kategori::all();
+   return view ('kategori.index',compact('kategori'));
     }
 
     /**
@@ -24,7 +25,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -35,7 +36,11 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+       $kategori=kategori::create($request->all());
+       return redirect('kategori');
     }
 
     /**
@@ -55,9 +60,10 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kategori $kategori)
+    public function edit($id)
     {
-        //
+        $kategori = Kategori ::find($id);
+        return view('kategori.form', compact('kategori'));
     }
 
     /**
@@ -69,7 +75,14 @@ class KategoriController extends Controller
      */
     public function update(Request $request, Kategori $kategori)
     {
-        //
+        $validate = $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+        $kategori->update([
+            'nama'=>$request->nama
+
+        ]);
+        return redirect('kategori');
     }
 
     /**
@@ -78,8 +91,11 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy( $id)
     {
-        //
+        $kategori = Kategori::find($id);
+        $kategori ->delete();
+
+        return redirect('kategori');
     }
 }

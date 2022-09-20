@@ -2,43 +2,45 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\controllers\{
+    KategoriController,
+    BarangController,
+    SuplierController,
+   PembeliController,
+   PembelianController,
+   PenjualanController
+};
 
 Route::get('/', function () {
     return view('home');
 });
+//Route Barang
+Route::resource('/barang',BarangController::class);
+Route::get('/barang/{id}/edit', [BarangController::class,'edit']);
+Route::get('/barang/{id}/hapus', [BarangController::class,'destroy']);
 
-Route::get('/barang', function () {
-    return view('barang.index');
-});
+//route kategori
+Route::resource('/kategori',KategoriController::class);
+Route::get('/kategori/edit/{id}', [kategoriController::class,'edit']);
+Route::get('/kategori/hapus/{id}', [kategoriController::class,'destroy']);
 
-Route::get('/kategori', function () {
-    return view('kategori.index');
-});
-
-Route::get('/pembeli', function () {
-    return view('pembeli.index');
-});
-
-Route::get('/pembelian', function () {
-    return view('pembelian.index');
-});
-
-Route::get('/penjualan', function () {
-    return view('penjualan.index');
-});
-
-Route::get('/suplayer', function () {
-    return view('suplayer.index');
-});
+//pembeli
+Route::resource('/pembeli',PembeliController::class);
+Route::get('/pembeli/edit/{id}', [PembeliController::class,'edit']);
+Route::get('/pembeli/hapus/{id}', [PembeliController::class,'destroy']);
 
 
+Route::resource('/pembelian', PembelianController::class);
+Route::get('/pembelian/hapus/{id}', [PembelianController::class, 'destroy']);
+Route::get('/pembelian/edit/{id}', [PembelianController::class, 'edit']);
+
+
+//suplier
+Route::resource('/suplier',SuplierController::class);
+Route::get('/suplier/edit/{id}', [SuplierController::class,'edit']);
+Route::get('/suplier/hapus/{id}', [SuplierController::class,'destroy']);
+
+
+Route::resource('/penjualan',PenjualanController::class);
+Route::get('/penjualan/edit/{id}', [PenjualanController::class,'edit']);
+Route::get('/penjualan/hapus/{id}', [PenjualanController::class,'destroy']);

@@ -1,50 +1,49 @@
 @extends('layout.app')
 
 @section('title')
-Penjualan
+    Penjualan
 @endsection
 
 @section('content')
-    <div class="card mt-3">
-        <div class="card-header">
-<div class="card-title">
-    <h5>Data Penjualan</h5>
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="card-title">
+      <h5>Data Penjualan</h5>
 
-    <button typo="button" class="btn btn-success btn-sm float-end"  data-bs-toggle="modal" data-bs-target=#modalTambah><i class="fa fa-plus"></i></button>
+      <button type="button" class="btn btn-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="fa fa-plus"></i></button>
     </div>
-</div>
-<div class="card-body">
-<table class ="table table-striped ">
-    <thead>
-        <tr>
-            <th>No.</th>
-          <th>barang_id</th>
-          <th>pembelian_id</th>
-          <th>jumlah</th>
-          <th>harga_jual</th>
-    <th>aksi</th>
-</tr>
-</thead>
+  </div>
 
- <tbody>
-    <tr>
-        <td>1</td>
-        <td>sapu</td>
-        <td>1</td>
-        <td>5</td>
-        <td>gak di doll</td>
-       
-        <td>
-            <a href="#" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i>
-            </a>
-            </td>
-    </tr>
- </tbody>
-    
-</body>
-</table>
-</div>
+  <div class="card-body">
+    <table class="table table-striped ">
+      <thead>
+        <tr>
+          <th style="width: 5%">No.</th>
+          <th>Nama Barang</th>
+          <th>Pembeli</th>
+          <th>Jumlah</th>
+          <th>Harga</th>
+          <th style="width: 10%">Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @foreach ($penjualan as $item)
+        <tr>
+          <td>{{$loop->iteration}}</td>
+        <td>{{$item->barang}}</td>
+        <td>{{$item->pembeli}}</td>
+          <td>{{$item->jumlah}}</td>
+          <td>{{$item->harga_jual}}</td>
+          <td>
+            <a href="/penjualan/edit/{{$item->id}}" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i> </a>
+            <a href="/penjualan/hapus/{{$item->id}}" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash"></i> </a>
+          </td>
+        </tr> 
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- Modal -->
@@ -56,12 +55,43 @@ Penjualan
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form action="{{route('penjualan.store')}}" method="POST">
+          @csrf
+          <div class="form-group mb-3">
+            <label for="barang">Barang</label>
+            <select name="barang" id="barang" class="form-control">
+              @foreach ($barang as $item)
+                  <option value="{{ $item->id }}">{{ $item->nama }}</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="pembeli">Pembeli</label>
+            <select name="pembeli" id="pembeli" class="form-control">
+              @foreach ($pembeli as $item)
+                  <option value="{{ $item->id }}">{{ $item->nama }}</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="jumlah">Jumlah</label>
+            <input type="text" name="jumlah" id="jumlah" 
+            class="form-control @error('jumlah') is-invalid @enderror">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="harga">Harga</label>
+            <input type="text" name="harga_jual" id="harga" 
+            class="form-control @error('harga') is-invalid @enderror">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
+    </form>
     </div>
   </div>
 </div>

@@ -1,14 +1,14 @@
 @extends('layout.app')
 
 @section('title')
-Pembeli
+Suplier
 @endsection
 
 @section('content')
     <div class="card mt-3">
         <div class="card-header">
 <div class="card-title">
-    <h5>Data Pembeli</h5>
+    <h5>Data Suplayer</h5>
 
     <button typo="button" class="btn btn-success btn-sm float-end"  data-bs-toggle="modal" data-bs-target=#modalTambah><i class="fa fa-plus"></i></button>
     </div>
@@ -19,22 +19,23 @@ Pembeli
         <tr>
             <th>No.</th>
             <th>Nama</th>
-            <th>telepon</th>
-            <th>alamat</th>
+           <th>telepon</th>
+           <th>alamat</th>
     <th>aksi</th>
 </tr>
 </thead>
-@foreach($pembeli as $item)
+ @foreach($suplier as $item)
  <tbody>
     <tr>
     <td>{{$loop->iteration}}</td>
-                    <td>{{$item->nama}}</td>
-                    <td>{{$item->telepon}}</td>
-                    <td>{{$item->alamat}}</td>
-                    <td>
-            <a href="/pembeli/edit/{{$item->id}}" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
-            <a href="/pembeli/hapus/{{$item->id}}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i>
-            </a>
+    <td>{{$item->nama}}</td>
+    <td>{{$item->telepon}}</td>
+    <td>{{$item->alamat}}</td>
+ 
+        <td>
+            <a href="/suplier/edit/{{$item->id}}" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
+            <a href="/suplier/hapus/{{$item->id}}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i>
+</a>
             </td>
     </tr>
     @endforeach
@@ -53,11 +54,11 @@ Pembeli
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="{{route('pembeli.store')}}" method="POST">
+      <form action="{{route('suplier.store')}}" method="POST">
           @csrf
 
           <div class="form-group">
-            <label for="nama">Nama pembeli</label>
+            <label for="nama">Nama</label>
             <input type="text" name="nama" id ="nama" 
             class="form-control @error('nama') is-invalid @enderror">
           </div>
@@ -68,7 +69,6 @@ Pembeli
             class="form-control @error('telepon') is-invalid @enderror">
           </div>
 
-          
           <div class="form-group">
             <label for="alamat">alamat</label>
             <input type="text" name="alamat" id ="alamat" 
@@ -78,7 +78,7 @@ Pembeli
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button type="sumbit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-success">Simpan</button>
       </div>
 </form>
     </div>

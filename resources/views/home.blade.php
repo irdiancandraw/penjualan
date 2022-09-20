@@ -19,7 +19,7 @@
 </div>
 
       <div class="col-3">
-      <div class="p-3 border bg-light mt-3">5 Supliyer<i
+      <div class="p-3 border bg-light mt-3">5 Suplier<i
       class="fa fa-truck"></i>
     </div>
     </div>

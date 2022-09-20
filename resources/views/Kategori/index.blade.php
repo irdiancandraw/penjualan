@@ -10,7 +10,7 @@ Kategori
 <div class="card-title">
     <h5>Data Kategori</h5>
 
-    <button typo="button" class="btn btn-success btn-sm float-end"  data-bs-toggle="modal" data-bs-target=#modalTambah><i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-success btn-sm float-end"  data-bs-toggle="modal" data-bs-target=#modalTambah><i class="fa fa-plus"></i></button>
     </div>
 </div>
 <div class="card-body">
@@ -25,18 +25,26 @@ Kategori
 </thead>
 
  <tbody>
+  @foreach ($kategori as $item)
+  
     <tr>
-        <td>1</td>
-        <td>candra</td>
+        <td>{{$loop ->iteration}}</td>
+        <td>{{$item->nama}}</td>
       <td>
-            <a href="#" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i>
-            </a>
+             <a href="/kategori/edit/{{$item->id}}" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i></a>
+            <!-- <form action= "{{route('kategori.destroy',$item->id)}}" method="POST">
+              @csrf
+              @method('delete')
+              <button class="btn btn-sm btn-dager" type="submit"><i class="fa-solid fa-tras" </button>
+</form>   -->
+
+            <a href="/kategori/hapus/{{$item->id}}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i> </a>
             </td>
+
     </tr>
+    @endforeach
  </tbody>
-    
-</body>
+</tbody>
 </table>
 </div>
 </div>
@@ -50,12 +58,23 @@ Kategori
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <form action="{{route('kategori.store')}}" method="POST">
+          @csrf
+
+          <div class="form-group">
+            <label for="nama">Nama</label>
+            <input type="text" name="nama" id ="nama" 
+            class="form-control @error('nama') is-invalid @enderror">
+          </div>
+          
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
         ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
+      </form>
     </div>
   </div>
 </div>
